@@ -6,3 +6,14 @@ before_install:
     - docker build -t ausgeflippte/docker-prac -f dockerfile.dev .
 script:
     - docker run -e CI=true ausgeflippte/docker-prac npm run test
+deploy:
+    provider: elasticbeanstalk
+    region: 'us-east-2'
+    app: 'docker-prac'
+    env: Dockerprac-env
+    bucket_name: 'elasticbeanstalk-us-east-2-471929661564'
+    bucket_path: 'docker-prac'
+    on:
+        branch: master
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_KEY
